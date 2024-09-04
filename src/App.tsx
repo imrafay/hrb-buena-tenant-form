@@ -1,9 +1,10 @@
 import React from 'react';
+import './index.css';
 
 function App() {
   return (
     <div className="App">
-      <h1>Form</h1>
+      <p className='text-2xl'>Form</p>
     </div>
   );
 }
