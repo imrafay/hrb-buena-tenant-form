@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import FormWizard from './components/FormWizard';
-import Submission from './components/Submission';
+import FormWizard from './components/ui/FormWizard';
+import Submission from './components/ui/Submission';
 
 const App: React.FC = () => {
   return (
@@ -10,8 +10,8 @@ const App: React.FC = () => {
         <div className="w-full max-w-xl p-8 bg-white shadow-md">
           <Routes>
             <Route path="/" element={<FormWizard />} />
-            <Route path="/step1" element={<FormWizard />} />
-            <Route path="/step2" element={<FormWizard />} />
+            <Route path="/user-info" element={<FormWizard />} />
+            <Route path="/salary-selection" element={<FormWizard />} />
             <Route path="/summary" element={<FormWizard />} />
             <Route path="/submission" element={<Submission />} />
           </Routes>
