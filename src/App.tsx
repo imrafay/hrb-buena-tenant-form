@@ -2,10 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import FormWizard from './components/ui/FormWizard';
 import Submission from './components/ui/Submission';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const App: React.FC = () => {
   return (
     <Router>
+      <ToastContainer />
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="w-full max-w-xl p-8 bg-white shadow-md">
           <Routes>

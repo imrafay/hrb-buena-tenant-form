@@ -1,28 +1,56 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import UserInfo from '../form/UserInfoForm';
 import SalaryForm from '../form/SalaryForm';
 import Summary from '../form/Summary';
 import { updateFormData } from '../../store/formSlice';
+import { RootState } from '../../store';
 import ProgressBar from './ProgressBar';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import '../../style/formWizard.css';
 
 const FormWizard: React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+    const formData = useSelector((state: RootState) => state.form); // Access form data
 
+    const [showCurrentStep, setShowCurrentStep] = useState(true);
     const currentStep = location.pathname;
+    const nodeRef = useRef(null);
+
+    // Automatically redirect to /user-info if the path is '/'
+    useEffect(() => {
+        if (currentStep === '/') {
+            navigate('/user-info');
+        }
+    }, [currentStep, navigate]);
+
+    // Check if previous steps are completed
+    useEffect(() => {
+        if (currentStep === '/salary-selection' && (!formData.fullName || !formData.email)) {
+            navigate('/user-info');
+        } else if (currentStep === '/summary' && (!formData.fullName || !formData.email || !formData.salary)) {
+            navigate('/user-info');
+        }
+    }, [currentStep, formData, navigate]);
 
     const handleNext = (nextStep: string, data: any) => {
-        dispatch(updateFormData(data));
-        navigate(nextStep);
+        setShowCurrentStep(false);
+        setTimeout(() => {
+            dispatch(updateFormData(data));
+            navigate(nextStep);
+            setShowCurrentStep(true);
+        }, 300);
     };
 
     const handlePrev = (prevStep: string) => {
-        navigate(prevStep);
+        setShowCurrentStep(false);
+        setTimeout(() => {
+            navigate(prevStep);
+            setShowCurrentStep(true);
+        }, 300);
     };
 
     const handleSubmit = (data: any) => {
@@ -43,31 +71,42 @@ const FormWizard: React.FC = () => {
         }
     };
 
-    const steps = [
-        { path: '/user-info', component: <UserInfo onNext={(data) => handleNext('/salary-selection', data)} /> },
-        { path: '/salary-selection', component: <SalaryForm onNext={(data) => handleNext('/summary', data)} onPrev={() => handlePrev('/user-info')} /> },
-        { path: '/summary', component: <Summary onPrev={() => handlePrev('/salary-selection')} onSubmit={handleSubmit} /> }
-    ];
+    const getCurrentStepComponent = () => {
+        switch (currentStep) {
+            case '/user-info':
+                return (
+                    <UserInfo onNext={(data) => handleNext('/salary-selection', data)} />
+                );
+            case '/salary-selection':
+                return (
+                    <SalaryForm onNext={(data) => handleNext('/summary', data)} onPrev={() => handlePrev('/user-info')} />
+                );
+            case '/summary':
+                return (
+                    <Summary onPrev={() => handlePrev('/salary-selection')} onSubmit={handleSubmit} />
+                );
+            default:
+                return null;
+        }
+    };
 
     return (
         <>
             <div className="mb-4 text-sm text-gray-600">
                 <ProgressBar currentStep={getStepNumber()} />
             </div>
-            <TransitionGroup>
-                {steps.map(({ path, component }) => (
-                    <CSSTransition
-                        key={path}
-                        timeout={300}
-                        classNames="fade"
-                        unmountOnExit
-                    >
-                        <div className="form-step">
-                            {currentStep === path && component}
-                        </div>
-                    </CSSTransition>
-                ))}
-            </TransitionGroup>
+
+            <CSSTransition
+                in={showCurrentStep}
+                timeout={300}
+                classNames="fade"
+                nodeRef={nodeRef}
+                unmountOnExit
+            >
+                <div ref={nodeRef} className="form-step">
+                    {getCurrentStepComponent()}
+                </div>
+            </CSSTransition>
         </>
     );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import Button from '../common/Button';
+import { toast } from 'react-toastify';
 
 interface SummaryProps {
     onPrev: () => void;
@@ -10,14 +11,17 @@ interface SummaryProps {
 
 const Summary: React.FC<SummaryProps> = ({ onPrev, onSubmit }) => {
     const formData = useSelector((state: RootState) => state.form);
-    console.log("formData", formData);
     const handleSubmit = () => {
         onSubmit(formData);
+        toast.success('Form submitted successfully!', {
+            position: "top-right",
+            autoClose: 2000
+        });
+        console.log("Form submitted successfully");
     };
 
     return (
         <div className="max-w-4xl mx-auto p-8 bg-gradient-to-r">
-
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
                 <h2 className="text-xl font-extrabold mb-6 text-gray-800">Form Summary</h2>
                 <div className="mb-4">
@@ -42,7 +46,7 @@ const Summary: React.FC<SummaryProps> = ({ onPrev, onSubmit }) => {
                     Back
                 </Button>
                 <Button type="button" onClick={handleSubmit} variant="primary">
-                    Next
+                    Submit
                 </Button>
             </div>
         </div>
