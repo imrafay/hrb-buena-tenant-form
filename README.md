@@ -1,46 +1,58 @@
-# Getting Started with Create React App
+# HRB Buena Tenant Form
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a Tenant Form Application built with React, TypeScript, and Redux. It allows users to input their information, review a summary, and submit their details. It includes features such as form validation, data submission, and a step-by-step form wizard.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+Multi-step form wizard to collect user information
+Form validation using react-hook-form
+State management using Redux
+UI components with Tailwind CSS
+Toast notifications for form submission success using react-toastify
+Unit tests using Jest and React Testing Library
 
-### `npm start`
+## Tech Stack
+* React (Frontend)
+* TypeScript (Type-safe JavaScript)
+* Redux toolkit (State Management)
+* Tailwind CSS (Styling)
+* Jest (Testing)
+* React Testing Library (Testing)
+* react-toastify (Notifications)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Installation
+To set up and run the project locally, follow these steps:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. Clone the Repository
+   
+```bash
+git clone https://github.com/imrafay/hrb-buena-tenant-form.git
+cd hrb-buena-tenant-form
+```
 
-### `npm test`
+3. Install Dependencies
+Before running the application, make sure to install all the required dependencies:
+`npm install`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Environment Setup
+Ensure you have a .env file if needed for the project configuration (such as API URLs or other environment variables).
 
-### `npm run build`
+4. Running the Application
+To run the application in development mode, use:
+`npm start`
+Open http://localhost:3000 to view it in the browser.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Usage
+* Start the Application: Follow the instructions in the installation section to start the application.
+* Fill Out the Form: Navigate through the form steps, enter the required information (Full Name, Email, Phone Number, Salary Range).
+* Review Summary: After entering the details, you will see a summary page where all entered information is displayed.
+* Submit: Click the "Submit" button to submit the form data and display a success message.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Running Tests
+The project uses Jest and React Testing Library for unit tests.
+### Running All Tests
+To run all tests:
+`npm test`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
